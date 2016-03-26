@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Data.Entity;
 
 namespace MyApp1
 {
@@ -13,29 +14,44 @@ namespace MyApp1
     {
         public static void Main(string[] args)
         {
-            List<Employee> employees = new List<Employee>();
+            // List<Employee> employees = new List<Employee>();
 
             try
             {
-                Employee emp1 = new Employee(1000, "エビ＝デンス", Sex.Man, "1998/03/01", "ex_ebi.mail.add");
-                emp1.Tel = "446―15a0－8008";
+                Employee emp1 = new Employee(1000, "エビ＝デンス", Sex.Man, "1998/03/01", "ex_ebi.Email");
+                emp1.Tel = "446―1560－8008";
 
-                Employee emp2 = new Employee(1100, "ナン＝センス", Sex.Man, "1890/03/12", "ex1_nan.mail.add");
+                Employee emp2 = new Employee(1100, "ナン＝センス", Sex.Man, "1890/03/12", "ex1_nan.Email");
                 emp2.Tel = "593-1375-446";
 
-                Employee emp3 = new Employee(1200, "ヒヤ＝シンス", Sex.Women, "2003/05/01", "ex2_hiya.mail.add");
+                Employee emp3 = new Employee(1200, "ヒヤ＝シンス", Sex.Women, "2003/05/01", "ex2_hiya.Email");
                 emp3.Tel = "123-9874-6543";
 
-                employees.Add(emp1);
-                employees.Add(emp2);
-                employees.Add(emp3);
+                using (var context = new EmployeesContext())
+                {
+                    context.Employees.Add(emp1);
+                    context.Employees.Add(emp2);
+                    context.Employees.Add(emp3);
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine("エラー:{0}", e.Message);
             }
 
-            OutPutFile.FileCopy(employees);
+           // OutPutFile.FileCopy(employees);
+        }
+
+        public class EmployeesContext :DbContext
+        {
+            public EmployeesContext()
+                : base("EmployeesContext")
+            {
+
+            }
+
+            public DbSet<Employee> Employees { get; set; }
         }
 
         /// <summary>

@@ -169,6 +169,7 @@ namespace MyApp1
                     if (strArray.Length < 0 || strArray.Length > 3) {
                         throw new Exception("TELの区切り数が不正です！");
                     }
+                    //数値チェック用のresult.形だけ.使用はしない.
                     int result = 0;
                     foreach (string stData in strArray)
                     {  
@@ -202,6 +203,21 @@ namespace MyApp1
                 {
                     throw new Exception("MailAddressの入力がありません！");
                 }
+                //メールアドレスの入力値チェックを行う.
+                //.Emailで終わっているかどうか.
+                if (value.EndsWith(".Email") == false)
+                {
+                    throw new Exception("MailAddressの入力値が不正です！");
+                }
+                //全角文字が入っていないかどうか.
+                byte [] byte_data = System.Text.Encoding.GetEncoding(932).GetBytes(value);
+	            if (!(byte_data.Length == value.Length))
+                {
+                    throw new Exception("MailAddressの入力値(全角入力あり)不正です！");
+                }
+                //半角文字アルファベット以外が入っていないかどうか.
+                
+
                 _MailAddress = value;
             }
         }
