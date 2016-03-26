@@ -71,14 +71,19 @@ namespace MyApp1
         {
             get
             {
-                return _Name;
-            }
-            set
-            {
                 if (_Name == null)
                 {
                     throw new Exception("名前の入力がありません！");
                 }
+                return _Name;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new Exception("名前の入力がありません！");
+                }
+                _Name = value;
             }
         }
         /// <summary>
@@ -107,14 +112,19 @@ namespace MyApp1
         {
             get
             {
-                return _Birthdate;
-            }
-            set
-            {
                 if (_Birthdate == null)
                 {
                     throw new Exception("誕生日の入力がありません！");
                 }
+                return _Birthdate;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new Exception("誕生日の入力がありません！");
+                }
+                _Birthdate = value;
             }
         }
 
@@ -126,28 +136,73 @@ namespace MyApp1
         {
             get
             {
-                return _Tel;
-            }
-            set
-            {
                 if (_Tel == null)
                 {
                     throw new Exception("TELの入力がありません！");
                 }
+                return _Tel;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new Exception("TELの入力がありません！");
+                }
+                else{
+                    //TELLの桁数チェックを行う
+                    //全角‐(ハイフン)の場合→半角ハイフンへ変換
+                    if(value.IndexOf("‐") != -1){
+                        value = value.Replace("‐", "-");
+                    }
+                    //全角マイナスの場合→半角ハイフンへ変換
+                    if(value.IndexOf("－") != -1){
+                         value = value.Replace("－", "-");
+                    }
+                    //全角のダッシュの場合→半角ハイフンへ変換
+                    if(value.IndexOf("―") != -1){
+                        value = value.Replace("―", "-");
+                    }
+
+                    //"-"で区切って４桁以内、４桁以内、４桁以内 であることを確認
+                    string[] strArray = value.Split('-');
+                    //var strCount = strArray[].Count;
+                    if (strArray.Length < 0 || strArray.Length > 3) {
+                        throw new Exception("TELの区切り数が不正です！");
+                    }
+                    int result = 0;
+                    foreach (string stData in strArray)
+                    {  
+                        //数字だけかどうかのチェック
+                        if (!int.TryParse(stData, out result))
+                        {
+                            throw new Exception("TELの入力値が不正です！");
+                        }
+                        if (stData.Length < 0 || stData.Length > 4)
+                        {
+                            throw new Exception("TELの入力値数が不正です！");
+                        }
+                    }
+                }
+                _Tel = value;
             }
         }
         public string MailAddress
         {
             get
             {
-                return _MailAddress;
-            }
-            set
-            {
                 if (_MailAddress == null)
                 {
                     throw new Exception("MailAddressの入力がありません！");
                 }
+                return _MailAddress;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new Exception("MailAddressの入力がありません！");
+                }
+                _MailAddress = value;
             }
         }
         /// <summary>
@@ -158,10 +213,10 @@ namespace MyApp1
         {
             get
             {
-                if (Birthdate == null)
-                {
-                    throw new Exception("BirthDateの入力がありません！");
-                }
+                //if (Birthdate == null)
+                //{
+                //    throw new Exception("BirthDateの入力がありません！");
+                //}
                 int age = 0;
 
                 age = DateTime.Now.Year - Birthdate.Year;

@@ -18,24 +18,13 @@ namespace MyApp1
             try
             {
                 Employee emp1 = new Employee(1000, "エビ＝デンス", Sex.Man, "1998/03/01", "ex_ebi.mail.add");
-                emp1.Tel = "446-1500-8008";
+                emp1.Tel = "446―15a0－8008";
 
-
-                Employee emp2 = new Employee();
-                emp2.Id = 1100;
-                emp2.Name = "ナン＝センス";
-                emp2.Sex = Sex.Man;
-                emp2.Birthdate = DateTime.Parse("1890/03/12");
+                Employee emp2 = new Employee(1100, "ナン＝センス", Sex.Man, "1890/03/12", "ex1_nan.mail.add");
                 emp2.Tel = "593-1375-446";
-                emp2.MailAddress = "ex1_nan.mail.add";
 
-                Employee emp3 = new Employee();
-                emp3.Id = 1200;
-                emp3.Name = "ヒヤ＝シンス";
-                emp3.Sex = Sex.Women;
-                emp3.Birthdate = DateTime.Parse("2003/05/01");
+                Employee emp3 = new Employee(1200, "ヒヤ＝シンス", Sex.Women, "2003/05/01", "ex2_hiya.mail.add");
                 emp3.Tel = "123-9874-6543";
-                emp3.MailAddress = "ex2_hiya.mail.add";
 
                 employees.Add(emp1);
                 employees.Add(emp2);

@@ -11,8 +11,8 @@ namespace MyApp1Test
         [ExpectedException(typeof(System.FormatException))]
         public void Telに1が代入されたときエラーとなること()
         {
-            var cut = new Employee();
-            cut.Tel = "a";
+            //var cut = new Employee();
+            //cut.Tel = "a";
         }
     }
 }
